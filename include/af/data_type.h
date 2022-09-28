@@ -469,8 +469,6 @@ namespace af
             double limit_price;
             int64_t qty;
             Side side;
-            VolumeCondition volume_condition;
-            TimeCondition time_condition;
 
             [[nodiscard]] std::string get_symbol() const
             { return symbol; }

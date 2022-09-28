@@ -45,20 +45,6 @@ namespace af
         SELL
     };
 
-    enum class VolumeCondition : int8_t
-    {
-        Any,
-        Min,
-        All
-    };
-
-    enum class TimeCondition : int8_t
-    {
-        IOC,
-        GFD,
-        GTC
-    };
-
     enum class OrderStatus : int8_t
     {
         Unknown,
