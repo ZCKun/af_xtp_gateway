@@ -38,26 +38,26 @@ namespace af
 
         inline bool is_sz_stock(std::string const &symbol_code)
         {
-            std::string head{symbol_code.c_str(), 2};
-            return head == "30" || head == "00";
+            auto s = symbol_code.c_str();
+            return (s[0] == '0' || s[0] == '3') && s[1] == '0';
         }
 
         inline bool is_sh_stock(std::string const &symbol_code)
         {
-            std::string head{symbol_code.c_str(), 2};
-            return head == "60" || head == "68";
+            auto s = symbol_code.c_str();
+            return s[0] == '6' && (s[1] == '0' || s[1] == '8');
         }
 
         inline bool is_sz_bond(std::string const &symbol_code)
         {
-            std::string head{symbol_code.c_str(), 2};
-            return head == "12";
+            auto s = symbol_code.c_str();
+            return s[0] == '1' && s[1] == '2';
         }
 
         inline bool is_sh_bond(std::string const &symbol_code)
         {
-            std::string head{symbol_code.c_str(), 2};
-            return head == "11";
+            auto s = symbol_code.c_str();
+            return s[0] == '1' && s[1] == '1';
         }
 
         inline bool is_stock(std::string const &symbol_code)
