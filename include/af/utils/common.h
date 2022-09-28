@@ -9,6 +9,8 @@
 #include <utility>
 #include <climits> /* INT_MIN, INT_MAX */
 #include <unordered_map>
+#include <set>
+
 
 namespace af
 {
@@ -34,49 +36,28 @@ namespace af
             return ret;
         }
 
-        template<typename T>
-        inline constexpr T *new_obj()
-        {
-            return new T;
-        }
-
-        const static std::unordered_map<std::string, char> sz_stock_headers{
-                {"00", '1'},
-                {"30", '1'}
-        };
-        const static std::unordered_map<std::string, char> sh_stock_headers{
-                {"60", '2'},
-                {"68", '2'}
-        };
-        const static std::unordered_map<std::string, char> sz_bond_headers{
-                {"12", '1'}
-        };
-        const static std::unordered_map<std::string, char> sh_bond_headers{
-                {"11", '2'}
-        };
-
         inline bool is_sz_stock(std::string const &symbol_code)
         {
             std::string head{symbol_code.c_str(), 2};
-            return sz_stock_headers.find(head) != sz_stock_headers.end();
+            return head == "30" || head == "00";
         }
 
         inline bool is_sh_stock(std::string const &symbol_code)
         {
             std::string head{symbol_code.c_str(), 2};
-            return sh_stock_headers.find(head) != sh_stock_headers.end();
+            return head == "60" || head == "68";
         }
 
         inline bool is_sz_bond(std::string const &symbol_code)
         {
             std::string head{symbol_code.c_str(), 2};
-            return sz_bond_headers.find(head) != sz_bond_headers.end();
+            return head == "12";
         }
 
         inline bool is_sh_bond(std::string const &symbol_code)
         {
             std::string head{symbol_code.c_str(), 2};
-            return sh_bond_headers.find(head) != sh_bond_headers.end();
+            return head == "11";
         }
 
         inline bool is_stock(std::string const &symbol_code)
@@ -211,7 +192,7 @@ namespace af
 
         struct Milliseconds
         {
-            static inline std::tuple <int64_t, std::string> parse(int64_t ms)
+            static inline std::tuple<int64_t, std::string> parse(int64_t ms)
             {
                 int64_t t = ms / 1'000;
                 int64_t suffix = ms % 1'000;
@@ -227,7 +208,7 @@ namespace af
 
         struct Microseconds
         {
-            static inline std::tuple <int64_t, std::string> parse(int64_t ms)
+            static inline std::tuple<int64_t, std::string> parse(int64_t ms)
             {
                 std::string suffix_s;
                 int64_t t = ms / 1'000'000;
@@ -247,7 +228,7 @@ namespace af
 
         struct Nanoseconds
         {
-            static inline std::tuple <int64_t, std::string> parse(int64_t ms)
+            static inline std::tuple<int64_t, std::string> parse(int64_t ms)
             {
                 std::string suffix_s;
                 int64_t t = ms / 1'000'000'000;
@@ -275,10 +256,7 @@ namespace af
          * @return
         */
         template<typename T>
-        inline int64_t convert_ts_to_time(int64_t
-                                          ms,
-                                          T p
-        )
+        inline int64_t convert_ts_to_time(int64_t ms, T p)
         {
             auto [t, suffix_s] = p.parse(ms);
 
@@ -330,6 +308,5 @@ namespace af
 
             return time_diff_str;
         }
-
     }
 }
