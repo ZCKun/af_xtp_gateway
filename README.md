@@ -1,1 +1,1 @@
-# AF - xtp_api library
+# AF - XTP Gateway
